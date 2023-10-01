@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Check if an argument is provided
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <cpp_filename>"
+  exit 1
+fi
+
+# Get the filename from the command line argument
+cpp_filename="$1"
+
+# Check if the file exists
+if [ ! -f "$cpp_filename" ]; then
+  echo "Error: File '$cpp_filename' not found."
+  exit 1
+fi
+
+# Extract the base filename without the extension
+base_filename=$(basename "$cpp_filename" .cpp)
+
+# Compile the C++ code and create an executable in the 'out' directory
+g++ "$cpp_filename" -o "out/$base_filename.out"
+
+# Check if compilation was successful
+if [ $? -eq 0 ]; then
+  # Run the compiled program
+  "./out/$base_filename.out"
+else
+  echo "Compilation failed."
+fi
