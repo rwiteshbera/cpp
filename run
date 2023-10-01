@@ -15,6 +15,11 @@ if [ ! -f "$cpp_filename" ]; then
   exit 1
 fi
 
+# Create the 'out' directory if it doesn't exist
+if [ ! -d "out" ]; then
+  mkdir "out"
+fi
+
 # Extract the base filename without the extension
 base_filename=$(basename "$cpp_filename" .cpp)
 
